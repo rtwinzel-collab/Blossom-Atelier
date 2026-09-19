@@ -92,7 +92,7 @@ if menu == "🛒 POS Checkout & Catalog":
     all_items = cursor.fetchall()
     conn.close()
 
-    col1, col2 = st.columns([3, 2])
+    col1, col2 = st.columns([3, 2]) 
 
     with col1:
         st.subheader("🛍️ Product Catalog")
@@ -255,7 +255,7 @@ elif menu == "📅 Event Bookings & Registration":
 elif menu == "🚚 Deliveries & Tracking":
     st.subheader("🚚 Active Deliveries & Event Status Tracker")
     conn = get_connection(); cur = conn.cursor()
-    cur.execute("SELECT id, client_name, contact_num, event_type, event_date, package, custom_notes, payment_method, status, total_amount FROM event_bookings WHERE status != 'Delivered & Completed' ORDER BY id DESC")
+    cur.execute("SELECT id, client_name, contact_num, event_type, event_date, package, custom_notes, payment, status, total_amount FROM event_bookings WHERE status != 'Delivered & Completed' ORDER BY id DESC")
     active_bookings = cur.fetchall(); conn.close()
     
     if active_bookings:
@@ -298,7 +298,7 @@ elif menu == "📂 Archived Records":
     st.caption("All finished deliveries and fully paid bookings are securely recorded here for future references and client history.")
     
     conn = get_connection(); cur = conn.cursor()
-    cur.execute("SELECT id, client_name, contact_num, event_type, event_date, package, payment_method, total_amount, date_created FROM event_bookings WHERE status = 'Delivered & Completed' ORDER BY id DESC")
+    cur.execute("SELECT id, client_name, contact_num, event_type, event_date, package, payment, status, total_amount, created_at FROM event_bookings WHERE status = 'Delivered & Completed' ORDER BY id DESC")
     archived = cur.fetchall(); conn.close()
     
     if archived:
